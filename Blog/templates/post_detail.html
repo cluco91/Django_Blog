@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load urlify %}
+
+
+{% block titulo_cabecera %} 
+{{ instance.titulo }} | {{block.super }} 
+{% endblock titulo_cabecera %}
+
+
+{% block content %}
+<!--Lo que yo coloque dentro del bloque de contenido se mostrará, 
+	lo que este afuera no se mostrará.-->
+<div class='col-sm-6 col-sm-offset-3'>
+{% if instance.imagen %}
+<img src='{{ instance.imagen.url }}' class='img-responsive' /><!-- o image.url-->
+{% endif %}
+<h1>{{titulo}} <small>{% if instance.borrador %}<span style='color:red;'>Borrador</span> {% endif %}{{ instance.publicar }}</small></h1>
+{% if instance.usuario.get_full_name %}
+<p>Autor: {{ instance.usuario.get_full_name }}</p>
+{% endif %}
+
+<p>
+<div class="fb-like" data-href="{{ request.build.absolute_uri }}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+<hr/> <!--Separador de lineas-->
+</p>
+
+<div class='row'>
+<div class='col-sm-12'>
+
+{{ instance.contenido|linebreaks }}
+
+<hr/>
+<br/>
+
+<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
+
+</div>
+</div>
+</div>
+
+{% endblock content %}

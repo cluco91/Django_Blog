@@ -1,0 +1,50 @@
+{% extends "base.html"%}
+{% block content %}
+
+<div class='col-sm-6 col-sm-offset-3'>
+<h1>{{ titulo }}</h1>
+<form method='GET' action=''>
+<input type='text' name='q' placeholder='Buscar Posts' value='{{ request.GET.q }}'/> <!--Ese q se refiere a query-->
+<input type='submit' value='Buscar'/>
+</form>
+
+{% for obj in object_list %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="thumbnail">
+      {% if obj.imagen %}
+      <img src='{{ obj.imagen.url }}' class='img-responsive'>
+      {% endif %}
+      <div class="caption">
+        {%  if obj.borrador %}<h3>Solo Moderadores: Borrador </h3>{% endif %} {% if obj.publicar > today %}<h3> Solo Moderadores: Post Futuro </h3>{% endif %}
+        <h3><a href='{{ obj.get_absolute_url }}'> {{ obj.titulo }} </a><small>{{ obj.publicar}} </small></h3>
+        {% if obj.usuario.get_full_name %}<p> Autor: {{ obj.usuario.get_full_name }} </p>{% endif %}
+        <p>{{ obj.contenido|linebreaks|truncatechars:120 }}</p>
+        <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">Ver Post</a></p>
+      </div>
+    </div>
+  </div>
+<hr/>
+</div>  
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Pagina {{ object_list.number }} de {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Siguiente</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+
+
+{% endblock content %}

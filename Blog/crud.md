@@ -1,0 +1,9 @@
+DB		    HTTP            CONCEPT
+
+RETRIEVE  --GET         --   LIST/SEARCH
+CREATE    --POST        --   MAKE NEW
+UPDATE    --PUT/PATCH   --   EDIT
+DELETE    --DELETE      --   DELETE
+
+
+CREATE, UPDATE, Y DELETE REQUIEREN PERMISOS.
