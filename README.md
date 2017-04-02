@@ -1,4 +1,4 @@
-![Image of Yaktocat](https://github.com/cluco91/JAVA_ModuloEmpleados/blob/master/Empleados.png)
+![Image of Yaktocat](https://github.com/cluco91/Django_Blog/blob/master/Blog.png)
 
 # Django_Blog
 
